@@ -31,7 +31,7 @@ import { Environment } from './constants';
       database: process.env.MYSQL_DBNAME,
       synchronize: process.env.APP_ID == Environment.Development,
       autoLoadModels: true,
-      // models: [User],
+      models: [User],
       // logging: false,
       retry: {
         max: 5, // Số lần thử lại tối đa
@@ -44,7 +44,7 @@ import { Environment } from './constants';
         console.log(log); // Để theo dõi log kết nối trong quá trình phát triển
       },
     }),
-    SequelizeModule.forFeature([User]),
+    // SequelizeModule.forFeature([User]),
     // FireBase
     FirebaseModule.forRoot({
       googleApplicationCredential: {
