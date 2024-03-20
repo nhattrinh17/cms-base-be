@@ -47,8 +47,12 @@ import { Environment } from './constants';
     SequelizeModule.forFeature([User]),
     // FireBase
     FirebaseModule.forRoot({
-      googleApplicationCredential: require('./statics/nhattm-chat-firebase-adminsdk-4m6nl-41375fdeef.json'),
-      storageBucket: 'gs://nhattm-chat.appspot.com',
+      googleApplicationCredential: {
+        clientEmail: process.env.CLIENT_EMAIL,
+        privateKey: process.env.PRIVATE_KEY,
+        projectId: process.env.PROJECT_ID,
+      },
+      storageBucket: process.env.STORAGE_BUCKET,
     }),
     UserModule,
     AuthModule,
