@@ -13,6 +13,8 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from './model';
 import { Dialect } from 'sequelize';
 import { Environment } from './constants';
+import { CategoryTypeModule } from './category-type/category-type.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -31,7 +33,6 @@ import { Environment } from './constants';
       database: process.env.MYSQL_DBNAME,
       synchronize: process.env.APP_ID == Environment.Development,
       autoLoadModels: true,
-      models: [User],
       // logging: false,
       retry: {
         max: 5, // Số lần thử lại tối đa
@@ -57,6 +58,8 @@ import { Environment } from './constants';
     UserModule,
     AuthModule,
     UploadModule,
+    CategoryTypeModule,
+    CategoryModule,
   ],
   providers: [
     //

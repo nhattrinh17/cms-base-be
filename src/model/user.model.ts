@@ -1,6 +1,7 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { BeforeCount, BeforeFind, BeforeSave, Column, Model, Table } from 'sequelize-typescript';
 import { DataType } from 'sequelize-typescript';
 import { Status } from 'src/constants';
+import { addConditionNotDelete } from '.';
 
 @Table({
   tableName: 'Users',
@@ -53,19 +54,16 @@ export class User extends Model {
   @Column({ type: DataType.BOOLEAN, defaultValue: false })
   confirmAccount: boolean;
 
-  @Column({ type: DataType.BOOLEAN })
+  @Column({ type: DataType.BOOLEAN, defaultValue: false })
   isDeleted: boolean;
 
   @Column({ type: DataType.DATE })
   deletedAt: Date;
-}
 
-const addConditionNotDelete = (options: any) => {
-  if (!options.where) {
-    options.where = {};
+  @BeforeFind
+  @BeforeCount
+  @BeforeSave
+  static async BeforeFindHook(options: any) {
+    addConditionNotDelete(options);
   }
-  options.where.isDeleted = { $ne: true };
-};
-
-// User.addHook('beforeFind', addConditionNotDelete);
-// User.addHook('beforeCount', addConditionNotDelete);
+}
