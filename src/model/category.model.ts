@@ -1,4 +1,4 @@
-import { BeforeCount, BeforeFind, Column, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { BeforeCount, BeforeFind, BelongsTo, Column, ForeignKey, Model, Table } from 'sequelize-typescript';
 import { DataType } from 'sequelize-typescript';
 import { Status } from 'src/constants';
 import { CategoryType, addConditionNotDelete } from '.';
@@ -23,7 +23,10 @@ export class Category extends Model {
 
   @ForeignKey(() => CategoryType)
   @Column
-  categoryType: string;
+  categoryTypeId: number;
+
+  @BelongsTo(() => CategoryType)
+  categoryType: CategoryType;
 
   @Column({ type: DataType.BOOLEAN, defaultValue: false })
   isDeleted: boolean;
