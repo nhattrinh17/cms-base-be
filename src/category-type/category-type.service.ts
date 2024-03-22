@@ -48,11 +48,11 @@ export class CategoryTypeService {
     };
   }
 
-  findOne(id: string) {
+  findOne(id: number) {
     return this, this.categoryTypeModel.findOne({ where: { id }, attributes: ['id', 'name', 'slug', 'status', 'kind'] });
   }
 
-  async update(id: string, dto: UpdateCategoryTypeDto) {
+  async update(id: number, dto: UpdateCategoryTypeDto) {
     const categoryType = await this.findOne(id);
     if (!categoryType) throw new HttpException(messageResponse.categoryType.notFound, HttpStatus.BAD_REQUEST);
     if (categoryType.slug !== dto.slug) {
@@ -66,7 +66,7 @@ export class CategoryTypeService {
     return this.categoryTypeModel.update(dto, { where: { id } });
   }
 
-  async remove(id: string) {
+  async remove(id: number) {
     const categoryType = await this.findOne(id);
     if (!categoryType) throw new HttpException(messageResponse.categoryType.notFound, HttpStatus.BAD_REQUEST);
     const dataUpdate = { isDeleted: true, deletedAt: new Date() };

@@ -37,18 +37,18 @@ export class CategoryTypeController {
   @Get(':id')
   @ApiOperationCustom('Category Type', 'Get', true, true)
   findOne(@Param('id') id: string) {
-    return this.categoryTypeService.findOne(id);
+    return this.categoryTypeService.findOne(+id);
   }
 
   @Patch(':id')
   @ApiOperationCustom('Category Type', 'patch')
   update(@Param('id') id: string, @Body() updateCategoryTypeDto: UpdateCategoryTypeDto) {
-    return this.categoryTypeService.update(id, updateCategoryTypeDto);
+    return this.categoryTypeService.update(+id, updateCategoryTypeDto);
   }
 
   @Delete(':id')
   @ApiOperationCustom('Category Type', 'delete')
   remove(@Param('id') id: string) {
-    return this.categoryTypeService.remove(id);
+    return this.categoryTypeService.remove(+id);
   }
 }

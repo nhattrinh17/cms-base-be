@@ -1,15 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateCategoryDto {
-  @ApiProperty({ name: 'name', description: 'Họ và tên', required: true })
+  @ApiProperty({ name: 'name', type: String, description: 'Họ và tên', required: true })
   name: string;
 
-  @ApiProperty({ name: 'slug', description: 'slug url' })
+  @ApiProperty({ name: 'slug', type: String, description: 'slug url' })
   slug: string;
 
-  @ApiProperty({ name: 'status', description: 'Trạng thái' })
+  @ApiProperty({ name: 'status', type: String, description: 'Trạng thái' })
   status: string;
 
-  @ApiProperty({ name: 'categoryType', description: 'id loại danh mục', required: true })
-  categoryTypeId: string;
+  @ApiProperty({ name: 'categoryType', type: Number, description: 'id loại danh mục', required: true })
+  categoryTypeId: number;
 }

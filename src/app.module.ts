@@ -1,5 +1,5 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { FirebaseModule } from 'nestjs-firebase';
 import { FirebaseService } from './utils/firebase-service';
 import { UserModule } from './user/user.module';
@@ -15,6 +15,11 @@ import { Dialect } from 'sequelize';
 import { Environment } from './constants';
 import { CategoryTypeModule } from './category-type/category-type.module';
 import { CategoryModule } from './category/category.module';
+import { BlogModule } from './blog/blog.module';
+import { SendMailService } from './send-mail/send-mail.service';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { join } from 'path';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 
 @Module({
   imports: [
@@ -22,6 +27,32 @@ import { CategoryModule } from './category/category.module';
       envFilePath: [`.env`, `.env.${process.env.NODE_ENV}`],
       isGlobal: true,
       expandVariables: true,
+    }),
+
+    MailerModule.forRootAsync({
+      // imports: [ConfigModule], // import module if not enabled globally
+      useFactory: async (config: ConfigService) => ({
+        // transport: config.get("MAIL_TRANSPORT"),
+        // or
+        transport: {
+          host: config.get('MAIL_HOST'),
+          secure: false,
+          auth: {
+            user: config.get('MAIL_USER'),
+            pass: config.get('MAIL_PASSWORD'),
+          },
+        },
+        defaults: {
+          from: `"No Reply" <${config.get('MAIL_FROM')}>`,
+        },
+        template: {
+          dir: join(__dirname, 'templates'),
+          adapter: new HandlebarsAdapter(),
+          options: {
+            strict: true,
+          },
+        },
+      }),
     }),
     // Connect to Models
     SequelizeModule.forRoot({
@@ -60,12 +91,14 @@ import { CategoryModule } from './category/category.module';
     UploadModule,
     CategoryTypeModule,
     CategoryModule,
+    BlogModule,
   ],
   providers: [
     //
     FirebaseService,
     RedisService,
     { provide: APP_GUARD, useClass: JwtAuthGuard },
+    SendMailService,
   ],
 })
 export class AppModule implements NestModule {

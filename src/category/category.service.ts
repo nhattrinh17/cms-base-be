@@ -17,19 +17,24 @@ export class CategoryService {
     private readonly categoryTypeService: CategoryTypeService,
   ) {}
 
+  async checkCategoryTypeAndSlug(categoryTypeId: number, slug?: string): Promise<void> {
+    const checkCategoryType = await this.categoryTypeService.findOne(categoryTypeId);
+    if (!checkCategoryType) throw new HttpException(messageResponse.category.categoryTypeNotFound, HttpStatus.BAD_REQUEST);
+    if (slug) {
+      const checkDuplicate = await this.categoryModel.findOne({
+        where: {
+          slug: slug,
+          categoryTypeId: categoryTypeId,
+        },
+      });
+      if (checkDuplicate) throw new HttpException(messageResponse.category.duplicate, HttpStatus.BAD_REQUEST);
+    }
+  }
+
   async create(dto: CreateCategoryDto) {
     if (!dto.categoryTypeId || !dto.name) throw new HttpException(messageResponse.category.missingData, HttpStatus.BAD_REQUEST);
-    const checkCategoryType = await this.categoryTypeService.findOne(dto.categoryTypeId);
-    if (!checkCategoryType) throw new HttpException(messageResponse.category.categoryTypeNotFound, HttpStatus.BAD_REQUEST);
     dto.slug = dto.slug || generateSlug(dto.name);
-    const checkDuplicate = await this.categoryModel.findOne({
-      where: {
-        slug: dto.slug,
-        categoryTypeId: dto.categoryTypeId,
-      },
-    });
-    if (checkDuplicate) throw new HttpException(messageResponse.category.duplicate, HttpStatus.BAD_REQUEST);
-
+    await this.checkCategoryTypeAndSlug(dto.categoryTypeId, dto.slug);
     return this.categoryModel.create({ ...dto });
   }
 
@@ -60,11 +65,15 @@ export class CategoryService {
   }
 
   findOne(id: string) {
-    return this, this.categoryModel.findOne({ where: { id }, attributes: ['id', 'name', 'slug', 'status', 'kind'] });
+    return this, this.categoryModel.findOne({ where: { id }, attributes: ['id', 'name', 'slug', 'status'] });
   }
 
-  update(id: string, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${id} category`;
+  async update(id: string, dto: UpdateCategoryDto) {
+    const checkExit = await this.findOne(id);
+    if (!checkExit) throw new HttpException(messageResponse.category.notFound, HttpStatus.BAD_REQUEST);
+    if (dto.categoryTypeId !== checkExit.categoryTypeId) await this.checkCategoryTypeAndSlug(dto.categoryTypeId);
+    if (dto.slug !== checkExit.slug) await this.checkCategoryTypeAndSlug(dto.categoryTypeId, dto.slug);
+    return this.categoryModel.update(dto, { where: { id } });
   }
 
   async remove(id: string) {
