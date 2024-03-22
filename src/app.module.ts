@@ -21,6 +21,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { join } from 'path';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 
+console.log(__dirname);
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -35,16 +36,23 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
         // transport: config.get("MAIL_TRANSPORT"),
         // or
         transport: {
-          host: config.get('MAIL_HOST'),
-          secure: false,
+          host: process.env.MAIL_HOST,
+          port: +process.env.MAIL_PORT,
+          service: 'Gmail',
+          secure: true,
           auth: {
-            user: config.get('MAIL_USER'),
-            pass: config.get('MAIL_PASSWORD'),
+            user: process.env.MAIL_USER,
+            pass: process.env.MAIL_PASSWORD,
+          },
+          tls: {
+            // do not fail on invalid certs
+            rejectUnauthorized: false,
           },
         },
         defaults: {
-          from: `"No Reply" <${config.get('MAIL_FROM')}>`,
+          from: `"No Reply" <${process.env.MAIL_FROM}>`,
         },
+
         template: {
           dir: join(__dirname, 'templates'),
           adapter: new HandlebarsAdapter(),

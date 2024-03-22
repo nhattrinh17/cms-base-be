@@ -925,7 +925,7 @@
   dependencies:
     sparse-bitfield "^3.0.3"
 
-"@nestjs-modules/mailer@^1.11.2":
+"@nestjs-modules/mailer@^1.10.3":
   version "1.11.2"
   resolved "https://registry.yarnpkg.com/@nestjs-modules/mailer/-/mailer-1.11.2.tgz#ae08c19db5cebd30204877e9628b377f484ddc2e"
   integrity sha512-k07wyKbtCzxWMm6IqGwcGIisnXD/6sneGvUR8rBBZbxtLn1HE1FLGyiaXBrPui/0K7W41aS9x9jAIhfTawtlUg==
