@@ -12,7 +12,7 @@ import { addConditionNotDelete } from '.';
     { name: 'phone_index', fields: ['phone'], unique: true },
   ],
 })
-export class User extends Model {
+export class UserModel extends Model {
   @Column({ type: DataType.INTEGER, primaryKey: true, autoIncrement: true })
   id: number;
 

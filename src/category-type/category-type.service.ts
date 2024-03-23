@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateCategoryTypeDto } from './dto/create-category-type.dto';
 import { UpdateCategoryTypeDto } from './dto/update-category-type.dto';
 import { InjectModel } from '@nestjs/sequelize';
-import { CategoryType } from 'src/model';
+import { CategoryTypeModel } from 'src/model';
 import { generateSlug } from 'src/utils';
 import { messageResponse } from 'src/constants';
 import { Pagination } from 'src/middlewares';
@@ -11,8 +11,8 @@ import { Op } from 'sequelize';
 @Injectable()
 export class CategoryTypeService {
   constructor(
-    @InjectModel(CategoryType)
-    private readonly categoryTypeModel: typeof CategoryType,
+    @InjectModel(CategoryTypeModel)
+    private readonly categoryTypeModel: typeof CategoryTypeModel,
   ) {}
 
   async create(dto: CreateCategoryTypeDto) {

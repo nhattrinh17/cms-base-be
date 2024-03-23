@@ -11,6 +11,7 @@ export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   @Post()
+  @ApiOperationCustom('Category Type', 'Post')
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoryService.create(createCategoryDto);
   }
@@ -34,17 +35,20 @@ export class CategoryController {
   }
 
   @Get(':id')
+  @ApiOperationCustom('Category Type', 'Get', true, true)
   findOne(@Param('id') id: string) {
-    return this.categoryService.findOne(id);
+    return this.categoryService.findOne(+id);
   }
 
   @Patch(':id')
+  @ApiOperationCustom('Category Type', 'patch')
   update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
-    return this.categoryService.update(id, updateCategoryDto);
+    return this.categoryService.update(+id, updateCategoryDto);
   }
 
   @Delete(':id')
+  @ApiOperationCustom('Category Type', 'delete')
   remove(@Param('id') id: string) {
-    return this.categoryService.remove(id);
+    return this.categoryService.remove(+id);
   }
 }

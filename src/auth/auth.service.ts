@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { User } from 'src/model';
+import { UserModel } from 'src/model';
 import { SmsTwilioService } from 'src/utils/sendSmsTwilio.service';
 import { RedisService } from 'src/cache/redis.service';
 import { ConfirmAccountDto } from './dto/update-auth.dto';
@@ -13,8 +13,8 @@ import { Op } from 'sequelize';
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectModel(User)
-    private readonly userModel: typeof User,
+    @InjectModel(UserModel)
+    private readonly userModel: typeof UserModel,
     private readonly smsTwilioService: SmsTwilioService,
     private readonly cacheService: RedisService,
     private readonly helper: Helper,

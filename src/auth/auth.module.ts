@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { User } from 'src/model';
+import { UserModel } from 'src/model';
 import { SmsTwilioService } from 'src/utils/sendSmsTwilio.service';
 import { RedisService } from 'src/cache/redis.service';
 import { JwtModule } from '@nestjs/jwt';
@@ -13,7 +13,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 
 @Module({
   imports: [
-    SequelizeModule.forFeature([User]),
+    SequelizeModule.forFeature([UserModel]),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({

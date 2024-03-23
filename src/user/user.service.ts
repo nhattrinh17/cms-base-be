@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Pagination } from 'src/middlewares';
-import { User } from 'src/model';
+import { UserModel } from 'src/model';
 import { Helper } from 'src/utils';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -10,8 +10,8 @@ import { Op } from 'sequelize';
 @Injectable()
 export class UserService {
   constructor(
-    @InjectModel(User)
-    private readonly userModel: typeof User,
+    @InjectModel(UserModel)
+    private readonly userModel: typeof UserModel,
     private readonly helper: Helper,
   ) {}
 

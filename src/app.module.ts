@@ -10,7 +10,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards';
 import { UploadModule } from './upload/upload.module';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { User } from './model';
+// import { User } from './model';
 import { Dialect } from 'sequelize';
 import { Environment } from './constants';
 import { CategoryTypeModule } from './category-type/category-type.module';
@@ -20,6 +20,8 @@ import { SendMailService } from './send-mail/send-mail.service';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { join } from 'path';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { ProductModule } from './product/product.module';
+import { ReviewModule } from './review/review.module';
 
 console.log(__dirname);
 @Module({
@@ -100,6 +102,8 @@ console.log(__dirname);
     CategoryTypeModule,
     CategoryModule,
     BlogModule,
+    ProductModule,
+    ReviewModule,
   ],
   providers: [
     //

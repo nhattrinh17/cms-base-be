@@ -4,19 +4,20 @@ import { Status } from 'src/constants';
 import { CategoryModel, addConditionNotDelete } from '.';
 
 @Table({
-  tableName: 'Blogs',
+  tableName: 'Products',
   timestamps: true,
   indexes: [
-    { name: 'title_index', fields: ['title'] },
+    { name: 'name_index', fields: ['name'] },
     { name: 'status_index', fields: ['status'] },
+    { name: 'categoryId_index', fields: ['categoryId'] },
   ],
 })
-export class BlogModel extends Model {
+export class ProductModel extends Model {
   @Column({ type: DataType.INTEGER, primaryKey: true, autoIncrement: true })
   id: number;
 
   @Column({ type: DataType.STRING })
-  title: string;
+  name: string;
 
   @Column({ type: DataType.STRING })
   slug: string;
@@ -27,23 +28,32 @@ export class BlogModel extends Model {
   @Column({ type: DataType.TEXT })
   content: string;
 
-  // @Column({ type: DataType.TEXT,  })
-  // auth: string;
-
-  @Column({ type: DataType.STRING })
-  publicationDate: string;
+  @Column({ type: DataType.INTEGER })
+  price: number;
 
   @Column({ type: DataType.STRING })
   featuredImage: string;
 
   @Column({ type: DataType.TEXT })
+  images: string;
+
+  @Column({ type: DataType.TEXT })
   description: string;
 
   @Column({ type: DataType.INTEGER })
-  viewCount: string;
+  buyCount: number;
 
   @Column({ type: DataType.INTEGER })
-  likeCount: string;
+  starsCount: number;
+
+  @Column({ type: DataType.TEXT })
+  code: string;
+
+  @Column({ type: DataType.INTEGER, comment: 'Tính theo gam' })
+  netWeight: number;
+
+  @Column({ type: DataType.STRING })
+  brand: string;
 
   @ForeignKey(() => CategoryModel)
   @Column

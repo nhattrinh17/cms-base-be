@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { InjectModel } from '@nestjs/sequelize';
-import { Category, CategoryType } from 'src/model';
+import { CategoryModel, CategoryTypeModel } from 'src/model';
 import { messageResponse } from 'src/constants';
 import { CategoryTypeService } from 'src/category-type/category-type.service';
 import { generateSlug } from 'src/utils';
@@ -12,8 +12,8 @@ import { Op } from 'sequelize';
 @Injectable()
 export class CategoryService {
   constructor(
-    @InjectModel(Category)
-    private readonly categoryModel: typeof Category,
+    @InjectModel(CategoryModel)
+    private readonly categoryModel: typeof CategoryModel,
     private readonly categoryTypeService: CategoryTypeService,
   ) {}
 
@@ -52,7 +52,7 @@ export class CategoryService {
       // attributes: ['id', 'name', 'slug', 'status', 'kind'],
       include: [
         {
-          model: CategoryType,
+          model: CategoryTypeModel,
           attributes: ['id', 'name', 'slug', 'status', 'kind'],
         },
       ],
@@ -64,11 +64,11 @@ export class CategoryService {
     };
   }
 
-  findOne(id: string) {
+  findOne(id: number) {
     return this, this.categoryModel.findOne({ where: { id }, attributes: ['id', 'name', 'slug', 'status'] });
   }
 
-  async update(id: string, dto: UpdateCategoryDto) {
+  async update(id: number, dto: UpdateCategoryDto) {
     const checkExit = await this.findOne(id);
     if (!checkExit) throw new HttpException(messageResponse.category.notFound, HttpStatus.BAD_REQUEST);
     if (dto.categoryTypeId !== checkExit.categoryTypeId) await this.checkCategoryTypeAndSlug(dto.categoryTypeId);
@@ -76,7 +76,7 @@ export class CategoryService {
     return this.categoryModel.update(dto, { where: { id } });
   }
 
-  async remove(id: string) {
+  async remove(id: number) {
     const categoryType = await this.findOne(id);
     if (!categoryType) throw new HttpException(messageResponse.category.notFound, HttpStatus.BAD_REQUEST);
     const dataUpdate = { isDeleted: true, deletedAt: new Date() };

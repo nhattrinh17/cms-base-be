@@ -9,7 +9,7 @@ import { addConditionNotDelete } from '.';
   timestamps: true,
   indexes: [{ name: 'name_index', fields: ['name'] }],
 })
-export class CategoryType extends Model {
+export class CategoryTypeModel extends Model {
   @Column({ type: DataType.INTEGER, primaryKey: true, autoIncrement: true })
   id: number;
 

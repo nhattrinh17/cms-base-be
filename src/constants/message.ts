@@ -1,6 +1,8 @@
 export const messageResponse = {
   system: {
-    bad_request: 'bad_request',
+    badRequest: 'bad_request',
+    emailNotInvalid: 'email_invalid',
+    phoneNumberInvalid: 'phone_number_invalid',
   },
   auth: {
     userNotFound: 'user_not_found',
@@ -16,5 +18,23 @@ export const messageResponse = {
     categoryTypeNotFound: 'category_type_not_found',
     missingData: 'missing_data',
     duplicate: 'duplicate_category',
+  },
+  blog: {
+    notFound: 'blog_not_found',
+    categoryNotFound: 'category_not_found',
+    missingData: 'missing_data',
+    duplicate: 'duplicate_blog',
+  },
+  product: {
+    notFound: 'product_not_found',
+    categoryNotFound: 'category_not_found',
+    missingData: 'missing_data',
+    duplicate: 'duplicate_product',
+  },
+  review: {
+    notFound: 'review_not_found',
+    productNotFound: 'product_not_found',
+    missingData: 'missing_data',
+    duplicate: 'duplicate_review',
   },
 };
