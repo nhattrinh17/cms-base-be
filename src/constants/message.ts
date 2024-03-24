@@ -37,4 +37,9 @@ export const messageResponse = {
     missingData: 'missing_data',
     duplicate: 'duplicate_review',
   },
+  group: {
+    notFound: 'group_not_found',
+    missingData: 'missing_data',
+    duplicate: 'duplicate_group',
+  },
 };

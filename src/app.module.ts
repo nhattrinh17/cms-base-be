@@ -22,6 +22,8 @@ import { join } from 'path';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { ProductModule } from './product/product.module';
 import { ReviewModule } from './review/review.module';
+import { GroupModule } from './group/group.module';
+import { PermissionActionModule } from './permission-action/permission-action.module';
 
 console.log(__dirname);
 @Module({
@@ -104,6 +106,8 @@ console.log(__dirname);
     BlogModule,
     ProductModule,
     ReviewModule,
+    GroupModule,
+    PermissionActionModule,
   ],
   providers: [
     //

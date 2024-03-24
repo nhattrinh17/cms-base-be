@@ -19,4 +19,9 @@ export enum CreateCategoryKind {
   Blog = 'blog',
 }
 
+export const TypePermissionCategory = {
+  Single: 'SINGLE',
+  Multilevel: 'MUlTILEVEL',
+};
+
 export * from './message';
