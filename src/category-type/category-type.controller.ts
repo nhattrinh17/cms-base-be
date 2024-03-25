@@ -23,11 +23,11 @@ export class CategoryTypeController {
   })
   @ApiQuery({
     name: 'status',
-    description: 'Trạng thái account',
+    description: 'Trạng thái hiển thị',
   })
   @ApiQuery({
     name: 'sort',
-    description: 'Trạng thái account',
+    description: 'Thứ tự sắp xếp',
   })
   @ApiOperationCustom('Category Type', 'Get')
   findAll(@Req() req, @Query('search') search: string, @Query('status') status: string, @Query('sort') sort: string) {

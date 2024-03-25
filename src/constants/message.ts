@@ -42,4 +42,9 @@ export const messageResponse = {
     missingData: 'missing_data',
     duplicate: 'duplicate_group',
   },
+  permissionAction: {
+    notFound: 'permission_action_not_found',
+    missingData: 'missing_data',
+    duplicate: 'duplicate_permission_action',
+  },
 };

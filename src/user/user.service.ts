@@ -39,7 +39,7 @@ export class UserService {
     const promise2 = this.userModel.findAll({
       //
       where: filter,
-      order: sort ? [sort, 'DESC'] : ['id', 'DESC'],
+      order: sort ? [[sort, 'DESC']] : [['id', 'DESC']],
       offset: pagination.offset,
       limit: pagination.limit,
       attributes: ['id', 'email', 'username', 'name', 'phone', 'status', 'gender', 'avatar'],

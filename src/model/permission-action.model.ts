@@ -4,7 +4,7 @@ import { Status } from 'src/constants';
 import { addConditionNotDelete } from '.';
 
 @Table({
-  tableName: 'permissionActions',
+  tableName: 'PermissionActions',
   timestamps: true,
   indexes: [{ name: 'name_index', fields: ['name'] }],
 })

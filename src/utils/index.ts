@@ -3,8 +3,9 @@ export * from './transform.interceptor';
 export * from './loadFiles.interceptor';
 export * from './helper';
 export * from './firebase-service';
-export function generateSlug(str) {
+export function generateSlug(str: string) {
   return str
+    .trim()
     .normalize('NFD') // Chuẩn hóa Unicode
     .replace(/[\u0300-\u036f]/g, '') // Loại bỏ các dấu thanh
     .toLowerCase() // Chuyển đổi thành chữ thường

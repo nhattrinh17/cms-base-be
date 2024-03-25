@@ -23,11 +23,11 @@ export class GroupController {
   })
   @ApiQuery({
     name: 'status',
-    description: 'Trạng thái account',
+    description: 'Trạng thái hiển thị',
   })
   @ApiQuery({
     name: 'sort',
-    description: 'Trạng thái account',
+    description: 'Thứ tự sắp xếp',
   })
   @BaseFilter()
   @ApiOperationCustom('Group', 'Get')

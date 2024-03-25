@@ -26,7 +26,7 @@ export class UserController {
   })
   @ApiQuery({
     name: 'status',
-    description: 'Trạng thái account',
+    description: 'Thứ tự sắp xếp',
   })
   @ApiOperationCustom('User', 'Get')
   findAll(@Req() req, @Query('search') search: string, @Query('status') status: string) {

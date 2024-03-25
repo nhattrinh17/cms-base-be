@@ -24,6 +24,7 @@ import { ProductModule } from './product/product.module';
 import { ReviewModule } from './review/review.module';
 import { GroupModule } from './group/group.module';
 import { PermissionActionModule } from './permission-action/permission-action.module';
+import { PermissionServiceModule } from './permission-service/permission-service.module';
 
 console.log(__dirname);
 @Module({
@@ -35,10 +36,7 @@ console.log(__dirname);
     }),
 
     MailerModule.forRootAsync({
-      // imports: [ConfigModule], // import module if not enabled globally
       useFactory: async (config: ConfigService) => ({
-        // transport: config.get("MAIL_TRANSPORT"),
-        // or
         transport: {
           host: process.env.MAIL_HOST,
           port: +process.env.MAIL_PORT,
@@ -108,6 +106,7 @@ console.log(__dirname);
     ReviewModule,
     GroupModule,
     PermissionActionModule,
+    PermissionServiceModule,
   ],
   providers: [
     //

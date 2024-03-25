@@ -19,15 +19,15 @@ export class ProductController {
   @Get()
   @ApiQuery({
     name: 'search',
-    description: 'User name hoặc email',
+    description: 'Tên sp',
   })
   @ApiQuery({
     name: 'status',
-    description: 'Trạng thái account',
+    description: 'Trạng thái hiển thị',
   })
   @ApiQuery({
     name: 'sort',
-    description: 'Trạng thái account',
+    description: 'Thứ tự sắp xếp',
   })
   @BaseFilter()
   @ApiOperationCustom('Product', 'Get')

@@ -23,11 +23,11 @@ export class BlogController {
   })
   @ApiQuery({
     name: 'status',
-    description: 'Trạng thái account',
+    description: 'Trạng thái Blog',
   })
   @ApiQuery({
     name: 'sort',
-    description: 'Trạng thái account',
+    description: 'Sắp xếp hiển thị',
   })
   @BaseFilter()
   @ApiOperationCustom('Blog', 'Get')
